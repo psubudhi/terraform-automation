@@ -103,7 +103,7 @@ module "irsa-ebs-csi" {
 
 resource "helm_release" "kube_prometheus_stack" {
   name             = "kube-prometheus-stack"
-  chart            = "prometheus-community/kube-prometheus-stack"
+  chart            = "kube-prometheus-stack"
   repository       = "https://prometheus-community.github.io/helm-charts"
   namespace        = "monitoring"
   create_namespace = true
@@ -113,5 +113,11 @@ resource "helm_release" "kube_prometheus_stack" {
   depends_on = [
     module.eks
   ]
+}
+
+resource "null_resource" "helm_repo_update" {
+  provisioner "local-exec" {
+    command = "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update"
+  }
 }
 
