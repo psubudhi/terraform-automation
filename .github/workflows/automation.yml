@@ -33,8 +33,11 @@ jobs:
       - name: Plan Terraform
         run: terraform plan -out=tfplan
 
+    #   - name: Apply Terraform
+    #     run: terraform apply -auto-approve tfplan
+
       - name: Apply Terraform
-        run: terraform apply -auto-approve tfplan
+        run: terraform destroy -auto-approve tfplan
     
       - name: Save Kubeconfig for Local Use
         run: |
