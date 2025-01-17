@@ -35,8 +35,4 @@ jobs:
 
       - name: Apply Terraform
         run: terraform apply -auto-approve tfplan
-    
-      - name: Set up Kubeconfig for Terraform
-        run: |
-          aws eks update-kubeconfig --name ${var.cluster_name} --region ap-south-1
         
