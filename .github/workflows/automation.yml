@@ -25,8 +25,8 @@ jobs:
             terraform_version: 1.5.6
 
       - name: Initialize Terraform
-        run: terraform init --upgarde
-
+        run: terraform init -upgrade 
+        
     #   - name: Validate Terraform
     #     run: terraform validate
 
