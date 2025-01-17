@@ -25,20 +25,18 @@ jobs:
             terraform_version: 1.5.6
 
       - name: Initialize Terraform
-        run: terraform init -upgrade 
-        
-    #   - name: Validate Terraform
-    #     run: terraform validate
+        run: terraform init
 
-    #   - name: Plan Terraform
-    #     run: terraform plan -out=tfplan
+      - name: Validate Terraform
+        run: terraform validate
 
-    #   - name: Apply Terraform
-    #     run: terraform apply -auto-approve
+      - name: Plan Terraform
+        run: terraform plan -out=tfplan
 
-      - name: Destroy Terraform
-        run: terraform destroy -auto-approve
+      - name: Apply Terraform
+        run: terraform apply -auto-approve tfplan
     
-    #   - name: Save Kubeconfig for Local Use
-    #     run: |
-    #       echo "Kubeconfig generated successfully. Download it from the Terraform output or check the file 'kubeconfig_eks' in your repository folder."
+      - name: Set up Kubeconfig for Terraform
+        run: |
+          aws eks update-kubeconfig --name ${var.cluster_name} --region ap-south-1
+        
