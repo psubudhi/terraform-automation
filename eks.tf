@@ -113,12 +113,12 @@ provider "aws" {
 
 # Filter out local zones, which are not currently supported 
 # with managed node groups
-# data "aws_availability_zones" "available" {
-#   filter {
-#     name   = "opt-in-status"
-#     values = ["opt-in-not-required"]
-#   }
-# }
+data "aws_availability_zones" "available" {
+  filter {
+    name   = "opt-in-status"
+    values = ["opt-in-not-required"]
+  }
+}
 
 locals {
   cluster_name = "Terraform-cluster-${random_string.suffix.result}"
