@@ -219,11 +219,16 @@ resource "helm_release" "kube_prometheus_stack" {
   depends_on = [
     null_resource.get_kubeconfig
   ]
-  
+
   set = [
     {
       name  = "kubeconfig"
       value = "${path.module}/kubeconfig"
     }
   ]
+
+  # Set the KUBECONFIG environment variable to ensure Helm can find the kubeconfig file
+  environment = {
+    KUBECONFIG = "${path.module}/kubeconfig"
+  }
 }
