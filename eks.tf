@@ -475,18 +475,16 @@ resource "helm_release" "kube_prometheus_stack" {
     null_resource.get_kubeconfig
   ]
 
-  set = [
-    {
-      name  = "kubeconfig"
-      value = "${path.module}/kubeconfig"
-    }
-  ]
+#   set = [
+#     {
+#       name  = "kubeconfig"
+#       value = "${path.module}/kubeconfig"
+#     }
+#   ]
 
   # Use local-exec provisioner to install the Helm chart after kubeconfig is updated
-  provisioner "local-exec" {
-    command = <<EOT
-      export KUBECONFIG=${path.module}/kubeconfig
-      helm upgrade --install kube-prometheus-stack ${path.module}/charts/kube-prometheus-stack
-    EOT
+  resource "local_file" "kubeconfig" {
+  content  = module.eks.kubeconfig
+  filename = "${path.module}/kubeconfig_eks"
   }
 }
