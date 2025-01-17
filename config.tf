@@ -5,9 +5,9 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 }
 
-data "aws_eks_cluster_auth" "eks" {
-  name = module.eks.cluster_name
-}
+# data "aws_eks_cluster_auth" "eks" {
+#   name = module.eks.cluster_name
+# }
 
 provider "helm" {
   kubernetes {
