@@ -249,10 +249,10 @@ resource "helm_release" "kube_prometheus_stack" {
     }
   ]
 
-  provisioner "local-exec" {
-    command = <<EOT
-      export KUBECONFIG=${path.module}/kubeconfig
-      helm upgrade --install kube-prometheus-stack ${path.module}/charts/kube-prometheus-stack
-    EOT
-  }
+#   provisioner "local-exec" {
+#     command = <<EOT
+#       export KUBECONFIG=${path.module}/kubeconfig
+#       helm upgrade --install kube-prometheus-stack ${path.module}/charts/kube-prometheus-stack
+#     EOT
+#   }
 }
