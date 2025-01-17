@@ -84,29 +84,29 @@ module "eks" {
 }
 
 
-resource "helm_release" "kube_prometheus_stack" {
-  name             = "kube-prometheus-stack"
-  chart            = "kube-prometheus-stack"
-  repository       = "https://prometheus-community.github.io/helm-charts"
-  namespace        = "monitoring"
-  create_namespace = true
-  version          = "67.10.0"
+# resource "helm_release" "kube_prometheus_stack" {
+#   name             = "kube-prometheus-stack"
+#   chart            = "kube-prometheus-stack"
+#   repository       = "https://prometheus-community.github.io/helm-charts"
+#   namespace        = "monitoring"
+#   create_namespace = true
+#   version          = "67.10.0"
 
   # Ensure the Helm release depends on the EKS cluster being created first
 #   depends_on = [
 #     module.eks
 #   ]
-}
+# }
 
-resource "local_file" "kubeconfig" {
-  content  = module.eks.kubeconfig
-  filename = "${path.module}/kubeconfig_eks"
-}
+# resource "local_file" "kubeconfig" {
+#   content  = module.eks.kubeconfig
+#   filename = "${path.module}/kubeconfig_eks"
+# }
  
-output "kubeconfig" {
-  value      = module.eks.kubeconfig
-  sensitive  = true
-}
+# output "kubeconfig" {
+#   value      = module.eks.kubeconfig
+#   sensitive  = true
+# }
 
 # resource "null_resource" "helm_repo_update" {
 #   provisioner "local-exec" {
@@ -244,6 +244,7 @@ output "kubeconfig" {
 
 
 
+<<<<<<< HEAD
 # provider "aws" {
 #   region = var.region
 # }
@@ -260,6 +261,15 @@ output "kubeconfig" {
 # module "vpc" {
 #   source  = "terraform-aws-modules/vpc/aws"
 #   version = "5.8.1"
+=======
+provider "aws" {
+  region = var.region
+}
+
+locals {
+  cluster_name = "Terraform-cluster-${random_string.suffix.result}"
+}
+>>>>>>> parent of d3c9400 (done)
 
 #   name = "education-vpc"
 
