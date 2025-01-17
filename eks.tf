@@ -220,8 +220,8 @@ resource "helm_release" "kube_prometheus_stack" {
     null_resource.get_kubeconfig
   ]
 
-  set {
-    name  = "kubeconfig"
-    value = "${path.module}/kubeconfig"
-  }
-}
+#   set {
+#     name  = "kubeconfig"
+#     value = "${path.module}/kubeconfig"
+#   }
+# }
