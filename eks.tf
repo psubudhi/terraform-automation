@@ -115,9 +115,9 @@ resource "helm_release" "kube_prometheus_stack" {
   ]
 }
 
-resource "null_resource" "helm_repo_update" {
-  provisioner "local-exec" {
-    command = "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update"
-  }
-}
+# resource "null_resource" "helm_repo_update" {
+#   provisioner "local-exec" {
+#     command = "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update"
+#   }
+# }
 
