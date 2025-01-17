@@ -82,6 +82,7 @@ module "eks" {
     }
   }
 }
+
 resource "helm_release" "kube_prometheus_stack" {
   name             = "kube-prometheus-stack"
   chart            = "kube-prometheus-stack"
