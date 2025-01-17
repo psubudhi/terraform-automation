@@ -107,7 +107,7 @@ resource "helm_release" "kube_prometheus_stack" {
   repository       = "https://prometheus-community.github.io/helm-charts"
   namespace        = "monitoring"
   create_namespace = true
-#   version          = "64.0"
+  version          = "67.10.0"
 
   # Ensure the Helm release depends on the EKS cluster being created first
   depends_on = [
