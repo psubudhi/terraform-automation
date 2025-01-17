@@ -100,21 +100,18 @@ module "irsa-ebs-csi" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:kube-system:ebs-csi-controller-sa"]
 }
 
-resource "helm_repository" "prometheus" {
-  name = "prometheus-community"
-  url  = "https://prometheus-community.github.io/helm-charts"
-}
 
-# Ensure the repository is updated before installing the release
 resource "helm_release" "kube_prometheus_stack" {
   name             = "kube-prometheus-stack"
   chart            = "prometheus-community/kube-prometheus-stack"
+  repository       = "https://prometheus-community.github.io/helm-charts"
   namespace        = "monitoring"
   create_namespace = true
   version          = "64.0"
 
+  # Ensure the Helm release depends on the EKS cluster being created first
   depends_on = [
-    helm_repository.prometheus
+    module.eks
   ]
 }
 
