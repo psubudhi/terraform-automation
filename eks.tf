@@ -100,6 +100,20 @@ module "irsa-ebs-csi" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:kube-system:ebs-csi-controller-sa"]
 }
 
+data "aws_eks_cluster" "eks" {
+  name = module.eks.cluster_name
+}
+
+data "aws_eks_cluster_auth" "eks" {
+  name = module.eks.cluster_name
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.eks.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.eks.token
+}
+
 
 resource "helm_release" "kube_prometheus_stack" {
   name             = "kube-prometheus-stack"
@@ -120,4 +134,5 @@ resource "helm_release" "kube_prometheus_stack" {
 #     command = "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update"
 #   }
 # }
+
 
