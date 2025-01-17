@@ -244,9 +244,9 @@ output "kubeconfig" {
 
 
 
-provider "aws" {
-  region = var.region
-}
+# provider "aws" {
+#   region = var.region
+# }
 
 # locals {
 #   cluster_name = "Terraform-cluster-${random_string.suffix.result}"
