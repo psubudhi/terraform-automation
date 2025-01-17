@@ -37,8 +37,8 @@ jobs:
     #     run: terraform apply -auto-approve tfplan
 
       - name: Apply Terraform
-        run: terraform destroy -auto-approve tfplan
+        run: terraform destroy -auto-approve
     
-      - name: Save Kubeconfig for Local Use
-        run: |
-          echo "Kubeconfig generated successfully. Download it from the Terraform output or check the file 'kubeconfig_eks' in your repository folder."
+    #   - name: Save Kubeconfig for Local Use
+    #     run: |
+    #       echo "Kubeconfig generated successfully. Download it from the Terraform output or check the file 'kubeconfig_eks' in your repository folder."
