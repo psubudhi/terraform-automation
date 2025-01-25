@@ -1,4 +1,4 @@
-name: EKS-Grafana-Dashboards
+name: install-dashboards-extra
 
 on:
   push:
