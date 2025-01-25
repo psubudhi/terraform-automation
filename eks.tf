@@ -18,7 +18,7 @@ resource "random_string" "suffix" {
 
 # EKS Cluster name
 locals {
-  cluster_name = "Terraform-cluster-${random_string.suffix.result}"
+  cluster_name = "Terraform-cluster-grafana"
 }
 
 # VPC setup using terraform AWS VPC module
@@ -102,6 +102,10 @@ resource "helm_release" "kube_prometheus_stack" {
   create_namespace = true
   version          = "67.10.0"
 
+  values = [
+    file("${path.module}/grafana-dashboard/values.yaml")
+  ]
+
   depends_on = [
     null_resource.get_kubeconfig
   ]
@@ -112,6 +116,4 @@ resource "helm_release" "kube_prometheus_stack" {
       value = "${path.module}/kubeconfig"
     }
   ]
-
-
 }
