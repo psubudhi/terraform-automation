@@ -1,0 +1,27 @@
+name: install-dashboards-extra
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "terraform-automation/grafana-dashboard/**"
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name Terraform-cluster-grafana --region ap-south-1
+
+      - name: Apply Grafana Dashboard
+        run: helm upgrade kube-prometheus-stack prometheus-community/kube-prometheus-stack -f terraform-automation/grafana-dashboard/values.yaml -n monitoring
